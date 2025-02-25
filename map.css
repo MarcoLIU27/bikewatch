@@ -30,8 +30,20 @@ body {
     pointer-events: none;
 }
 
+:root {
+    --color-departures: steelblue;
+    --color-arrivals: darkorange;
+}
+
+#map svg circle,
+.legend>div {
+    --color: color-mix(in oklch,
+            var(--color-departures) calc(100% * var(--departure-ratio)),
+            var(--color-arrivals));
+}
+
 #map svg circle {
-    fill: steelblue;
+    fill: var(--color);
     fill-opacity: 0.6;
     stroke: white;
     pointer-events: auto;
@@ -70,4 +82,37 @@ header h1 {
 .time-filter input[type="range"] {
     width: 400px;
     margin: 0 0.5em;
+}
+
+.legend {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    margin-block: 1rem;
+    width: 100%;
+}
+
+.legend>div {
+    height: 35px;
+    width: 33.3%;
+    background: var(--color);
+    position: relative;
+}
+
+.legend label {
+    position: absolute;
+    color: white;
+    font-weight: 600;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-left: 40%;
+}
+
+.legend>div:first-child label {
+    padding-left: 1rem;
+}
+
+.legend>div:last-child label {
+    padding-left: 70%;
 }
